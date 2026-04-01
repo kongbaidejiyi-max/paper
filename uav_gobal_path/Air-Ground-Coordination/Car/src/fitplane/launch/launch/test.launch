@@ -1,0 +1,14 @@
+<launch>
+  <!-- 发布静态变换 -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="camera_init_to_map" output="screen" args="0 0 0 0.0 0.0 0.0 1.0 map camera_init" />
+
+  <!-- 启动 Traversibility_mappings 节点 -->
+  <node pkg="fitplane" type="Traversibility_mappings" name="Traversibility_mappings" output="screen" required="true">
+    <param name="PointCloud_Map_topic" value="/registered_point_cloud" />
+    <param name="robot_pose_topic" value="/laser_odom_init" />
+    <remap from="robot_plane_info" to="/robot_plane_info" />
+  </node>
+
+  <!-- 启动 RViz -->
+  <node name="demo" pkg="rviz" type="rviz" args="-d $(find fitplane)/launch/demo.rviz" />
+</launch>

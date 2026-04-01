@@ -1,0 +1,54 @@
+<launch>
+  <arg name="odom" default="/car/Odometry"/>
+  <arg name="output_frame" default="world"/>
+
+  <arg name="mesh_resource" default="package://car_visualization/meshes/car.dae"/>
+  <arg name="robot_scale" default="0.25"/>
+  <!-- This mesh's forward axis is -Y; rotate +90deg so it points +X (ROS forward). -->
+  <arg name="rotate_yaw_deg" default="90.0"/>
+
+  <arg name="color_r" default="0.471"/>
+  <arg name="color_g" default="0.490"/>
+  <arg name="color_b" default="0.510"/>
+  <arg name="color_a" default="1.0"/>
+
+  <arg name="origin" default="false"/>
+  <arg name="robot_id" default="-1"/>
+
+  <arg name="path_append_dt" default="0.1"/>
+  <arg name="path_max_points" default="0"/>
+  <arg name="traj_append_dt" default="0.5"/>
+  <arg name="traj_max_points" default="0"/>
+
+  <arg name="covariance_scale" default="100.0"/>
+  <arg name="covariance_position" default="false"/>
+  <arg name="covariance_velocity" default="false"/>
+
+  <node pkg="car_visualization" type="car_visualization" name="car_visualization" output="screen">
+    <!-- Compatible with both nh.subscribe("odom") and pnh.subscribe("odom") styles -->
+    <remap from="odom" to="$(arg odom)"/>
+    <remap from="~odom" to="$(arg odom)"/>
+
+    <param name="output_frame" value="$(arg output_frame)"/>
+    <param name="mesh_resource" value="$(arg mesh_resource)"/>
+    <param name="robot_scale" value="$(arg robot_scale)"/>
+    <param name="rotate_yaw_deg" value="$(arg rotate_yaw_deg)"/>
+
+    <param name="color/r" value="$(arg color_r)"/>
+    <param name="color/g" value="$(arg color_g)"/>
+    <param name="color/b" value="$(arg color_b)"/>
+    <param name="color/a" value="$(arg color_a)"/>
+
+    <param name="origin" value="$(arg origin)"/>
+    <param name="robot_id" value="$(arg robot_id)"/>
+
+    <param name="path_append_dt" value="$(arg path_append_dt)"/>
+    <param name="path_max_points" value="$(arg path_max_points)"/>
+    <param name="traj_append_dt" value="$(arg traj_append_dt)"/>
+    <param name="traj_max_points" value="$(arg traj_max_points)"/>
+
+    <param name="covariance_scale" value="$(arg covariance_scale)"/>
+    <param name="covariance_position" value="$(arg covariance_position)"/>
+    <param name="covariance_velocity" value="$(arg covariance_velocity)"/>
+  </node>
+</launch>

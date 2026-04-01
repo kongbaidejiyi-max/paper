@@ -1,0 +1,2 @@
+drone_visualization:fitplane:fitplane_planner
+-DCMAKE_BUILD_TYPE=Release -DCATKIN_DEVEL_PREFIX=/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Drone/devel -DCMAKE_INSTALL_PREFIX=/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Drone/install -G Unix Makefiles

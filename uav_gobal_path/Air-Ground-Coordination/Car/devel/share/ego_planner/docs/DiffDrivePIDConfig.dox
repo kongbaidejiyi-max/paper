@@ -1,0 +1,15 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~max_linear_vel" : \b [double] Max linear velocity (m/s) min: 0.0, default: 1.0, max: 5.0
+- \b "~max_angular_vel" : \b [double] Max angular velocity (rad/s) min: 0.0, default: 2.0, max: 5.0
+- \b "~position_tolerance" : \b [double] Position tolerance (m) min: 0.0, default: 0.1, max: 1.0
+- \b "~yaw_tolerance" : \b [double] Yaw tolerance (rad) min: 0.0, default: 0.1, max: 1.0
+- \b "~kp_pos" : \b [double] Position Kp min: 0.0, default: 1.2, max: 5.0
+- \b "~ki_pos" : \b [double] Position Ki min: 0.0, default: 0.0, max: 5.0
+- \b "~kd_pos" : \b [double] Position Kd min: 0.0, default: 0.0, max: 5.0
+- \b "~kp_yaw" : \b [double] Yaw Kp min: 0.0, default: 3.0, max: 5.0
+- \b "~ki_yaw" : \b [double] Yaw Ki min: 0.0, default: 0.0, max: 5.0
+- \b "~kd_yaw" : \b [double] Yaw Kd min: 0.0, default: 0.2, max: 5.0
+

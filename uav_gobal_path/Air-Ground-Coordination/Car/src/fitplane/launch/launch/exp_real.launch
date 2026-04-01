@@ -1,0 +1,26 @@
+<launch>
+  <!-- 使用真实时间 -->
+  <param name="use_sim_time" value="false" />
+
+  <!-- 发布静态变换 -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="camera_init_to_map" output="screen" args="0 0 0 0.0 0.0 0.0 1.0 map camera_init" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_world" output="screen" args="0 0 0 0.0 0.0 0.0 1.0 world map" />
+
+  <!-- 启动 Traversibility_mappings 节点 -->
+  <node pkg="fitplane" type="Traversibility_mappings" name="Traversibility_mappings" output="screen" required="true">
+    <!-- 将参数加载到节点的私有命名空间 -->
+    <rosparam file="$(find fitplane)/config/params.yaml" command="load" />
+
+    <param name="PointCloud_Map_topic" value="/cloud_accumulateds" />
+    <param name="robot_pose_topic" value="/Odom_high_freq" />
+    <remap from="robot_plane_info" to="/robot_plane_info" />
+    <param name="use_ex_range" value="false" />
+    <param name="ex_robot_front" value="14.0" />
+    <param name="ex_robot_back" value="-14.0" />
+    <param name="ex_robot_left" value="14.0" />
+    <param name="ex_robot_right" value="-14.0" />
+  </node>
+
+  <!-- 启动 RViz -->
+  <node name="demo" pkg="rviz" type="rviz" args="-d $(find fitplane)/launch/demo.rviz" />
+</launch>

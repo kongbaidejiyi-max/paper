@@ -1,0 +1,70 @@
+<launch>
+  <!-- map -->
+  <arg name="map_size_x" value="300.0"/>
+  <arg name="map_size_y" value="300.0"/>
+  <arg name="map_size_z" value="1.0"/>
+
+  <!-- odom + cloud -->
+  <arg name="odom_topic" value="/car/Odometry" />
+  <arg name="pointcloud_topic" value="/occupancy_point_cloud" />
+
+  <!-- GRP -->
+  <arg name="grp_topic" value="/grp" />
+
+  <include file="$(find ego_planner)/launch/advanced_param.xml">
+    <arg name="map_size_x_" value="$(arg map_size_x)"/>
+    <arg name="map_size_y_" value="$(arg map_size_y)"/>
+    <arg name="map_size_z_" value="$(arg map_size_z)"/>
+
+    <arg name="odometry_topic" value="$(arg odom_topic)"/>
+    <arg name="cloud_topic" value="$(arg pointcloud_topic)"/>
+    <arg name="camera_pose_topic" value="/pcl_render_node/camera_pose"/>
+    <arg name="depth_topic" value="/pcl_render_node/depth"/>
+
+    <arg name="cx" value="321.04638671875"/>
+    <arg name="cy" value="243.44969177246094"/>
+    <arg name="fx" value="387.229248046875"/>
+    <arg name="fy" value="387.229248046875"/>
+
+    <arg name="max_vel" value="2.0" />
+    <arg name="max_acc" value="1.0" />
+    <arg name="planning_horizon" value="2" />
+
+    <!-- 3: reference path from /grp -->
+    <arg name="flight_type" value="3" />
+
+    <!-- unused waypoints in GRP mode (still required by advanced_param.xml) -->
+    <arg name="point_num" value="0" />
+    <arg name="point0_x" value="0.0" />
+    <arg name="point0_y" value="0.0" />
+    <arg name="point0_z" value="0.0" />
+    <arg name="point1_x" value="0.0" />
+    <arg name="point1_y" value="0.0" />
+    <arg name="point1_z" value="0.0" />
+    <arg name="point2_x" value="0.0" />
+    <arg name="point2_y" value="0.0" />
+    <arg name="point2_z" value="0.0" />
+    <arg name="point3_x" value="0.0" />
+    <arg name="point3_y" value="0.0" />
+    <arg name="point3_z" value="0.0" />
+    <arg name="point4_x" value="0.0" />
+    <arg name="point4_y" value="0.0" />
+    <arg name="point4_z" value="0.0" />
+
+    <!-- GRP params -->
+    <arg name="grp_enable" value="true" />
+    <arg name="grp_topic" value="$(arg grp_topic)" />
+    <arg name="grp_lambda_max" value="0.5" />
+    <arg name="grp_forward_len" value="1.5" />
+  </include>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ego_planner)/launch/sim_rviz.rviz" required="true" />
+
+  <node pkg="mpc" name="mpc_controller_node" type="mpc_controller_node" output="screen">
+    <rosparam command="load" file="$(find mpc)/config/param.yaml"/>
+    <remap from="~cmd" to="/car/cmd_vel"/>
+    <remap from="~planning/bspline" to="/planning/bspline"/>
+    <remap from="~odom" to="$(arg odom_topic)"/>
+  </node> 
+</launch>
+

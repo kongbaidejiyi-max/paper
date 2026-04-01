@@ -1,0 +1,25 @@
+ <!-- <node pkg="ego_planner" name="traj_server" type="traj_server" output="screen">
+    <remap from="/position_cmd" to="planning/pos_cmd"/>
+    <remap from="/odom_world" to="$(arg odom_topic)"/>
+    <param name="traj_server/time_forward" value="1.0" type="double"/> -->
+    <!-- 运动学限幅参数 -->
+    <param name="max_linear_vel"   value="2.0" />   <!-- m/s -->
+    <param name="max_angular_vel"  value="3.0" />   <!-- rad/s -->
+    <param name="max_linear_acc"   value="2.0" />   <!-- m/s^2 -->
+    <param name="max_angular_acc"  value="4.0" />   <!-- rad/s^2 -->
+    <param name="wheelbase"        value="0.5" />   <!-- 轴距(m)，如果你用得到 -->
+
+    <!-- 误差容差 -->
+    <param name="position_tolerance" value="0.10" />  <!-- m -->
+    <param name="yaw_tolerance"      value="0.30" />  <!-- rad -->
+
+    <!-- 位置 PID 参数 -->
+    <param name="position_pid/kp" value="3.0" />
+    <param name="position_pid/ki" value="0.0" />
+    <param name="position_pid/kd" value="0.1" />
+
+    <!-- 航向 PID 参数 -->
+    <param name="yaw_pid/kp" value="6.0" />
+    <param name="yaw_pid/ki" value="0.0" />
+    <param name="yaw_pid/kd" value="0.2" />
+  </node>

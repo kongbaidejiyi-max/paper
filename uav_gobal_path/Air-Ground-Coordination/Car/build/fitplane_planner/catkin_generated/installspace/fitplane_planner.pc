@@ -1,0 +1,8 @@
+prefix=/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/install
+
+Name: fitplane_planner
+Description: Description of fitplane_planner
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: fitplane geometry_msgs nav_msgs roscpp std_msgs tf visualization_msgs message_runtime

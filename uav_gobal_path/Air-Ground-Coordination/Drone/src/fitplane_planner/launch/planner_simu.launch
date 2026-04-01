@@ -1,0 +1,37 @@
+<launch>
+    <!-- 启动地图管理器节点 -->
+    <node name="map_manager_node" pkg="fitplane_planner" type="map_manager_node" output="screen">
+        <param name="map_resolution" value="0.3"/>
+        <param name="map_width_meters" value="100.0"/>
+        <param name="map_height_meters" value="100.0"/>
+        <param name="map_update_frequency" value="2.0"/>
+        <param name="world_frame" value="map" />
+        <remap from="/odom" to="/Odometry"/>
+    </node>
+
+    <!-- 启动路径规划器节点 -->
+    <node name="path_planner_node" pkg="fitplane_planner" type="path_planner_node" output="screen">
+        <!-- 可以在这里为规划器设置参数 -->
+        <param name="inflation_radius" value="1" />
+        <param name="unknown_space_cost" value="1.0" />
+        <param name="path_marker_width" value="0.1" /> <!-- 路径线条宽度 (米) -->
+        <!-- 建议用相对名，配合 remap 更直观 -->
+        <param name="odom_topic" value="odom" />
+        <param name="world_frame" value="map" />
+        <param name="planning_frequency" value="2.0" />
+        <param name="replanning_distance_threshold" value="0.5" /> <!-- 机器人偏离路径多远(米)后触发重规划 -->
+        <!-- 沿路径行驶时滚动裁剪已走过的前缀，使 /plan 起点始终贴近机器人 -->
+        <param name="rolling_replan_enable" value="true" />
+        <param name="rolling_replan_keep_points_behind" value="0" />
+        <param name="obstacle_distance_cost_weight" value="1.5" /> <!-- 路径远离障碍物的倾向性权重 -->
+        <param name="turn_penalty_cost_weight" value="0.8" /> <!-- 路径保持平直的倾向性权重 -->
+        
+        <!-- 新增：探索模式下的权重 -->
+        <param name="goal_weight" value="1.0" />      <!-- 最终目标对探索方向的吸引力权重 -->
+        <param name="drone_pos_weight" value="0.5" /> <!-- 无人机位置对探索方向的吸引力权重 -->
+
+        <!-- 重映射里程计话题 -->
+        <remap from="odom" to="/Odometry"/>
+        <remap from="drone/odom" to="/real_drone_odom_topic"/>
+    </node>
+</launch> 

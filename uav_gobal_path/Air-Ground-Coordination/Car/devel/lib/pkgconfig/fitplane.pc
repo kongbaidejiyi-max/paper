@@ -1,0 +1,8 @@
+prefix=/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/devel
+
+Name: fitplane
+Description: Description of fitplane
+Version: 0.0.0
+Cflags: -I/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/devel/include -I/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/src/fitplane/include
+Libs: -L${prefix}/lib 
+Requires: 

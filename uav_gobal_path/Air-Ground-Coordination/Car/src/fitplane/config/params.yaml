@@ -1,0 +1,11 @@
+# Parameters for plane fitting
+
+# For flat terrain
+max_angle: 60.0 
+max_flatness: 0.9
+w1: 0.9
+
+# # For uneven terrain
+# max_angle: 40.0 
+# max_flatness: 0.001
+# w1: 0.8 

@@ -1,0 +1,71 @@
+<launch>
+    <!-- 启动地图管理器节点 -->
+    <node name="map_manager_node" pkg="fitplane_planner" type="map_manager_node" output="screen">
+        <param name="map_resolution" value="0.3"/>
+        <param name="map_width_meters" value="100.0"/>
+        <param name="map_height_meters" value="100.0"/>
+        <param name="map_update_frequency" value="2.0"/>
+        <param name="world_frame" value="map" />
+        <remap from="/odom" to="/car/Odometry"/>
+    </node>
+
+    <!-- 启动路径规划器节点 -->
+    <node name="path_planner_node" pkg="fitplane_planner" type="path_planner_node" output="screen">
+        <!-- 可以在这里为规划器设置参数 -->
+        <param name="inflation_radius" value="1.5" />
+        <param name="unknown_space_cost" value="1.0" />
+        <param name="path_marker_width" value="0.1" /> <!-- 路径线条宽度 (米) -->
+        <!-- 建议用相对名，配合 remap 更直观 -->
+        <param name="odom_topic" value="odom" />
+        <param name="world_frame" value="map" />
+        <param name="planning_frequency" value="2.0" />
+        <param name="replanning_distance_threshold" value="0.5" /> <!-- 机器人偏离路径多远(米)后触发重规划 -->
+        <!-- 沿路径行驶时滚动裁剪已走过的前缀，使 /plan 起点始终贴近机器人 -->
+        <param name="rolling_replan_enable" value="false" />
+        <param name="rolling_replan_keep_points_behind" value="0" />
+        <!-- 短段拼接式重规划：每移动 0.2m 重规划到前方 3m 的拼接点，然后复用旧路径剩余部分 -->
+        <param name="stitch_replan_enable" value="false" />
+        <param name="stitch_replan_trigger_distance" value="0.2" />
+        <param name="stitch_replan_lookahead_distance" value="3.0" />
+        <!-- Marker可视化：A* 原始每步格子点 & /grp 中心线 -->
+        <param name="astar_raw_marker_enable" value="true" />
+        <param name="astar_raw_marker_point_size" value="0.08" />
+        <param name="astar_raw_marker_z" value="0.03" />
+        <param name="astar_raw_marker_max_points" value="10000" />
+        <param name="grp_centerline_marker_enable" value="true" />
+        <param name="grp_centerline_marker_width" value="0.05" />
+        <param name="grp_centerline_marker_z" value="0.06" />
+        <param name="obstacle_distance_cost_weight" value="1.8" /> <!-- 路径远离障碍物的倾向性权重 -->
+        <!-- 更强的“走直线/少拐弯”倾向（可按需要回调到 0.8） -->
+        <param name="turn_penalty_cost_weight" value="0.8" />
+        
+        <!-- 新增：探索模式下的权重 -->
+        <param name="goal_weight" value="1.0" />      <!-- 最终目标对探索方向的吸引力权重 -->
+        <param name="drone_pos_weight" value="0.5" /> <!-- 无人机位置对探索方向的吸引力权重 -->
+
+        <!-- Corridor安全参数 -->
+        <param name="corridor_margin" value="0.4" />
+        <!-- 注意：可视化/GRP 的走廊宽度会被 corridor_max_width 限制（半宽上限=0.5*max_width） -->
+        <param name="corridor_min_width" value="1.0" />
+        <param name="corridor_max_width" value="2.0" />
+        <param name="clearance_ref_m" value="3.0" />
+        <param name="occ_confirm_frames" value="3" />
+        <param name="free_confirm_frames" value="10" />
+
+        <!-- GRP路径重采样参数 -->
+        <param name="grp_resample_enable" value="true" />           <!-- 启用GRP路径重采样 -->
+        <!-- 更密的点会让拐弯更顺滑、走廊可视化更稳定（代价是点数更多） -->
+        <param name="grp_resample_step" value="0.3" />
+
+        <!-- 智能重采样参数 -->
+        <param name="safe_resample_enable" value="false" />                   <!-- 禁用智能安全重采样，先用基本功能 -->
+        <param name="safe_resample_search_radius" value="2.0" />               <!-- 局部重规划搜索半径(米) -->
+        <param name="adaptive_density_enable" value="true" />                  <!-- 启用自适应密度调整 -->
+        <param name="high_complexity_threshold" value="0.7" />                 <!-- 高复杂度阈值 -->
+        <param name="low_complexity_threshold" value="0.3" />                  <!-- 低复杂度阈值 -->
+
+        <!-- 重映射无人机里程计话题 -->
+        <remap from="odom" to="/car/Odometry"/>
+        <remap from="drone/odom" to="/car/Odometry"/>
+    </node>
+</launch> 
