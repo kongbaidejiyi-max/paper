@@ -1,0 +1,2 @@
+float32 PlaneCellHeight
+float32 PlaneCellAngle

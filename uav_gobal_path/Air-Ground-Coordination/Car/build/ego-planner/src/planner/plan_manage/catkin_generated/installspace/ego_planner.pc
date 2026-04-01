@@ -1,0 +1,8 @@
+prefix=/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/install
+
+Name: ego_planner
+Description: Description of ego_planner
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lego_planner
+Requires: plan_env path_searching bspline_opt traj_utils fitplane_planner message_runtime

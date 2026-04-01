@@ -1,0 +1,25 @@
+<launch>    
+    <!-- TF变换
+    <node pkg="tf" type="static_transform_publisher" name="map_to_odom" 
+          args="0 0 0 0 0 0 map odom 100" />
+    
+    <node pkg="tf" type="static_transform_publisher" name="odom_to_base_link" 
+          args="0 0 0 0 0 0 odom base_link 100" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="base2vlp16"
+		args="0 0 0.045 0 0 0 base_link VLP16_link"/>
+     -->
+    <!-- 你的其他节点 -->
+     <!-- 发布静态变换 -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="camera_init_to_map" output="screen" args="0 0 0 0.0 0.0 0.0 1.0 map camera_init" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_world" output="screen" args="0 0 0 0.0 0.0 0.0 1.0 world map" />
+
+  <!-- 启动 Traversibility_mappings 节点 -->
+  <node pkg="fitplane" type="Traversibility_mappings" name="Traversibility_mappings" output="screen" required="true">
+    <param name="PointCloud_Map_topic" value="/cloud_accumulated" />
+    <param name="robot_pose_topic" value="/Odometry" />
+    <remap from="robot_plane_info" to="/robot_plane_info" />
+  </node>
+
+  <!-- 启动 RViz -->
+  <node name="demo" pkg="rviz" type="rviz" args="-d $(find fitplane)/launch/demo.rviz" />
+</launch>

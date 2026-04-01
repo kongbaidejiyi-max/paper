@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <authoring_tool>ChatGPT generated</authoring_tool>
+    </contributor>
+    <created>2025-12-26T00:00:00Z</created>
+    <modified>2025-12-26T00:00:00Z</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+
+  <!-- ---------------- Materials ---------------- -->
+  <library_effects>
+    <effect id="eff_body">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <diffuse><color>0.18 0.18 0.20 1</color></diffuse>
+            <specular><color>0.25 0.25 0.25 1</color></specular>
+            <shininess><float>40</float></shininess>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+
+    <effect id="eff_rotor">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <diffuse><color>0.05 0.05 0.06 1</color></diffuse>
+            <specular><color>0.20 0.20 0.20 1</color></specular>
+            <shininess><float>15</float></shininess>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+
+    <effect id="eff_lidar">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <diffuse><color>0.35 0.35 0.38 1</color></diffuse>
+            <specular><color>0.35 0.35 0.35 1</color></specular>
+            <shininess><float>60</float></shininess>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+
+    <effect id="eff_accent">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <diffuse><color>0.05 0.45 0.25 1</color></diffuse>
+            <specular><color>0.15 0.15 0.15 1</color></specular>
+            <shininess><float>25</float></shininess>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+
+  <library_materials>
+    <material id="mat_body" name="mat_body"><instance_effect url="#eff_body"/></material>
+    <material id="mat_rotor" name="mat_rotor"><instance_effect url="#eff_rotor"/></material>
+    <material id="mat_lidar" name="mat_lidar"><instance_effect url="#eff_lidar"/></material>
+    <material id="mat_accent" name="mat_accent"><instance_effect url="#eff_accent"/></material>
+  </library_materials>
+
+  <!-- ---------------- Geometry ---------------- -->
+  <library_geometries>
+
+    <!-- Unit cube centered at origin, side length = 1 -->
+    <geometry id="geo_unit_cube" name="unit_cube">
+      <mesh>
+        <source id="cube_positions">
+          <float_array id="cube_positions_array" count="24">
+            -0.5 -0.5 -0.5
+             0.5 -0.5 -0.5
+             0.5  0.5 -0.5
+            -0.5  0.5 -0.5
+            -0.5 -0.5  0.5
+             0.5 -0.5  0.5
+             0.5  0.5  0.5
+            -0.5  0.5  0.5
+          </float_array>
+          <technique_common>
+            <accessor source="#cube_positions_array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+
+        <vertices id="cube_vertices">
+          <input semantic="POSITION" source="#cube_positions"/>
+        </vertices>
+
+        <triangles count="12">
+          <input semantic="VERTEX" source="#cube_vertices" offset="0"/>
+          <p>
+            0 1 2   0 2 3
+            4 6 5   4 7 6
+            0 4 5   0 5 1
+            1 5 6   1 6 2
+            2 6 7   2 7 3
+            3 7 4   3 4 0
+          </p>
+        </triangles>
+      </mesh>
+    </geometry>
+
+    <!-- Low-poly cylinder (MID-360 placeholder), centered at origin, height=1, radius=0.5 -->
+    <geometry id="geo_cyl16" name="cylinder16">
+      <mesh>
+        <source id="cyl_positions">
+          <float_array id="cyl_positions_array" count="102">
+             0.5 0 0.5   0.462 0.191 0.5   0.354 0.354 0.5   0.191 0.462 0.5
+             0 0.5 0.5  -0.191 0.462 0.5  -0.354 0.354 0.5  -0.462 0.191 0.5
+            -0.5 0 0.5  -0.462 -0.191 0.5 -0.354 -0.354 0.5 -0.191 -0.462 0.5
+             0 -0.5 0.5   0.191 -0.462 0.5   0.354 -0.354 0.5   0.462 -0.191 0.5
+
+             0.5 0 -0.5   0.462 0.191 -0.5   0.354 0.354 -0.5   0.191 0.462 -0.5
+             0 0.5 -0.5  -0.191 0.462 -0.5  -0.354 0.354 -0.5  -0.462 0.191 -0.5
+            -0.5 0 -0.5  -0.462 -0.191 -0.5 -0.354 -0.354 -0.5 -0.191 -0.462 -0.5
+             0 -0.5 -0.5   0.191 -0.462 -0.5   0.354 -0.354 -0.5   0.462 -0.191 -0.5
+
+             0 0 0.5
+             0 0 -0.5
+          </float_array>
+          <technique_common>
+            <accessor source="#cyl_positions_array" count="34" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+
+        <vertices id="cyl_vertices">
+          <input semantic="POSITION" source="#cyl_positions"/>
+        </vertices>
+
+        <triangles count="64">
+          <input semantic="VERTEX" source="#cyl_vertices" offset="0"/>
+          <p>
+            0 16 17   0 17 1
+            1 17 18   1 18 2
+            2 18 19   2 19 3
+            3 19 20   3 20 4
+            4 20 21   4 21 5
+            5 21 22   5 22 6
+            6 22 23   6 23 7
+            7 23 24   7 24 8
+            8 24 25   8 25 9
+            9 25 26   9 26 10
+            10 26 27  10 27 11
+            11 27 28  11 28 12
+            12 28 29  12 29 13
+            13 29 30  13 30 14
+            14 30 31  14 31 15
+            15 31 16  15 16 0
+
+            32 0 1
+            32 1 2
+            32 2 3
+            32 3 4
+            32 4 5
+            32 5 6
+            32 6 7
+            32 7 8
+            32 8 9
+            32 9 10
+            32 10 11
+            32 11 12
+            32 12 13
+            32 13 14
+            32 14 15
+            32 15 0
+
+            33 17 16
+            33 18 17
+            33 19 18
+            33 20 19
+            33 21 20
+            33 22 21
+            33 23 22
+            33 24 23
+            33 25 24
+            33 26 25
+            33 27 26
+            33 28 27
+            33 29 28
+            33 30 29
+            33 31 30
+            33 16 31
+          </p>
+        </triangles>
+      </mesh>
+    </geometry>
+
+  </library_geometries>
+
+  <!-- ---------------- Scene graph ---------------- -->
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+
+      <node id="quad_root" name="quad_root">
+
+        <!-- main body: 0.25 x 0.18 x 0.06 m -->
+        <node id="body" name="body">
+          <translate>0 0 0.00</translate>
+          <scale>0.25 0.18 0.06</scale>
+          <instance_geometry url="#geo_unit_cube">
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="m" target="#mat_body"/>
+              </technique_common>
+            </bind_material>
+          </instance_geometry>
+        </node>
+
+        <!-- accent top plate -->
+        <node id="accent" name="accent">
+          <translate>0 0 0.035</translate>
+          <scale>0.18 0.10 0.01</scale>
+          <instance_geometry url="#geo_unit_cube">
+            <bind_material>
+              <technique_common>
+                <instance_material symbol="m" target="#mat_accent"/>
+              </technique_common>
+            </bind_material>
+          </instance_geometry>
+        </node>
+
+        <!-- ===================== X-configuration arms & rotors ===================== -->
+        <!-- Arm model: a bar that extends from center to +X (local), then rotate around Z -->
+        <!-- arm length outwards: 0.36m, so translate 0.18 and scale 0.36 to make it start at origin -->
+        <!-- rotor center: at 0.36m from center (local +X), z=0.02 -->
+
+        <!-- arm/rotor @ 45 deg -->
+        <node id="arm_45" name="arm_45">
+          <rotate>0 0 1 45</rotate>
+          <translate>0.18 0 0.00</translate>
+          <scale>0.36 0.03 0.02</scale>
+          <instance_geometry url="#geo_unit_cube">
+            <bind_material><technique_common><instance_material symbol="m" target="#mat_body"/></technique_common></bind_material>
+          </instance_geometry>
+        </node>
+        <!-- rotor @ 45 deg (disc) -->
+        <node id="rotor_45" name="rotor_45">
+          <rotate>0 0 1 45</rotate>
+          <translate>0.36 0 0.02</translate>
+          <scale>0.18 0.18 0.004</scale>
+          <instance_geometry url="#geo_cyl16">
+            <bind_material><technique_common><instance_material symbol="m" target="#mat_rotor"/></technique_common></bind_material>
+          </instance_geometry>
+        </node>
+
+        <!-- arm/rotor @ 135 deg -->
+        <node id="arm_135" name="arm_135">
+          <rotate>0 0 1 135</rotate>
+          <translate>0.18 0 0.00</translate>
+          <scale>0.36 0.03 0.02</scale>
+          <instance_geometry url="#geo_unit_cube">
+            <bind_material><technique_common><instance_material symbol="m" target="#mat_body"/></technique_common></bind_material>
+          </instance_geometry>
+        </node>
+        <!-- rotor @ 135 deg (disc) -->
+        <node id="rotor_135" name="rotor_135">
+          <rotate>0 0 1 135</rotate>
+          <translate>0.36 0 0.02</translate>
+          <scale>0.18 0.18 0.004</scale>
+          <instance_geometry url="#geo_cyl16">
+            <bind_material><technique_common><instance_material symbol="m" target="#mat_rotor"/></technique_common></bind_material>
+          </instance_geometry>
+        </node>
+
+        <!-- arm/rotor @ 225 deg -->
+        <node id="arm_225" name="arm_225">
+          <rotate>0 0 1 225</rotate>
+          <translate>0.18 0 0.00</translate>
+          <scale>0.36 0.03 0.02</scale>
+          <instance_geometry url="#geo_unit_cube">
+            <bind_material><technique_common><instance_material symbol="m" target="#mat_body"/></technique_common></bind_material>
+          </instance_geometry>
+        </node>
+        <!-- rotor @ 225 deg (disc) -->
+        <node id="rotor_225" name="rotor_225">
+          <rotate>0 0 1 225</rotate>
+          <translate>0.36 0 0.02</translate>
+          <scale>0.18 0.18 0.004</scale>
+          <instance_geometry url="#geo_cyl16">
+            <bind_material><technique_common><instance_material symbol="m" target="#mat_rotor"/></technique_common></bind_material>
+          </instance_geometry>
+        </node>
+
+        <!-- arm/rotor @ 315 deg -->
+        <node id="arm_315" name="arm_315">
+          <rotate>0 0 1 315</rotate>
+          <translate>0.18 0 0.00</translate>
+          <scale>0.36 0.03 0.02</scale>
+          <instance_geometry url="#geo_unit_cube">
+            <bind_material><technique_common><instance_material symbol="m" target="#mat_body"/></technique_common></bind_material>
+          </instance_geometry>
+        </node>
+        <!-- rotor @ 315 deg (disc) -->
+        <node id="rotor_315" name="rotor_315">
+          <rotate>0 0 1 315</rotate>
+          <translate>0.36 0 0.02</translate>
+          <scale>0.18 0.18 0.004</scale>
+          <instance_geometry url="#geo_cyl16">
+            <bind_material><technique_common><instance_material symbol="m" target="#mat_rotor"/></technique_common></bind_material>
+          </instance_geometry>
+        </node>
+
+        <!-- MID-360 mount bracket -->
+        <node id="lidar_bracket" name="lidar_bracket">
+          <translate>0 0 -0.06</translate>
+          <scale>0.04 0.04 0.06</scale>
+          <instance_geometry url="#geo_unit_cube">
+            <bind_material><technique_common><instance_material symbol="m" target="#mat_body"/></technique_common></bind_material>
+          </instance_geometry>
+        </node>
+
+        <!-- MID-360 placeholder (cylinder), approx size: diameter 0.10m, height 0.06m -->
+        <node id="mid360" name="mid360">
+          <translate>0 0 -0.12</translate>
+          <scale>0.10 0.10 0.06</scale>
+          <instance_geometry url="#geo_cyl16">
+            <bind_material><technique_common><instance_material symbol="m" target="#mat_lidar"/></technique_common></bind_material>
+          </instance_geometry>
+        </node>
+
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

@@ -1,0 +1,20 @@
+<launch>
+
+  <arg name="odom_topic" value="/Odom_high_freq" />
+  <arg name="car_id" value="0" />
+
+
+  <node pkg="mpc" name="mpc_controller_node" type="mpc_controller_node" output="screen">
+      <rosparam command="load" file="$(find mpc)/config/param.yaml" />
+      <!-- <remap from="~cmd" to="/car_$(arg car_id)/cmd_vel"/> -->
+      <remap from="~cmd" to="/cmd_vel"/>
+      <!-- <remap from="~planning/bspline" to="/car_$(arg car_id)/planning/bspline"/> -->
+      planning/bspline
+      <remap from="~planning/bspline" to="/planning/bspline"/>
+
+
+      <remap from="~odom" to="$(arg odom_topic)"/>
+  </node>
+
+
+</launch>

@@ -1,0 +1,8 @@
+prefix=/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Drone/devel
+
+Name: drone_visualization
+Description: Description of drone_visualization
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp roslib nav_msgs geometry_msgs std_msgs visualization_msgs

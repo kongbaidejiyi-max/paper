@@ -1,0 +1,8 @@
+prefix=/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/devel
+
+Name: pose_utils
+Description: Description of pose_utils
+Version: 0.0.0
+Cflags: -I/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/src/ego-planner/src/uav_simulator/Utils/pose_utils/include
+Libs: -L${prefix}/lib -lpose_utils
+Requires: 

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/src/ego-planner/src/uav_simulator/Utils/pose_utils/include/pose_utils.h
+iostream
+-
+armadillo
+/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/src/ego-planner/src/uav_simulator/Utils/pose_utils/include/armadillo
+
+/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/src/ego-planner/src/uav_simulator/Utils/pose_utils/src/pose_utils.cpp
+pose_utils.h
+/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/src/ego-planner/src/uav_simulator/Utils/pose_utils/src/pose_utils.h
+

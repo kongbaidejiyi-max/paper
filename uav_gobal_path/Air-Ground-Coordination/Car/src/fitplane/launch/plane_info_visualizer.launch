@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- 启动可视化脚本 -->
+  <node name="plane_info_subscriber" pkg="fitplane" type="plane_info_subscriber.py" output="screen">
+    <!-- 可选参数 -->
+  </node>
+  
+  <!-- 启动数据记录器 -->
+  <node name="plane_data_logger" pkg="fitplane" type="plane_data_logger.py" output="screen">
+    <!-- 可选参数 -->
+  </node>
+  
+  <!-- 启动RViz以便可视化 -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find fitplane)/rviz/plane_visualizer.rviz" required="false" />
+</launch> 

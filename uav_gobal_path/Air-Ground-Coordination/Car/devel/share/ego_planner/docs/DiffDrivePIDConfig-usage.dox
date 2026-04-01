@@ -1,0 +1,16 @@
+\subsubsection usage Usage
+\verbatim
+<node name="differential_drive_pid" pkg="ego_planner" type="differential_drive_pid">
+  <param name="max_linear_vel" type="double" value="1.0" />
+  <param name="max_angular_vel" type="double" value="2.0" />
+  <param name="position_tolerance" type="double" value="0.1" />
+  <param name="yaw_tolerance" type="double" value="0.1" />
+  <param name="kp_pos" type="double" value="1.2" />
+  <param name="ki_pos" type="double" value="0.0" />
+  <param name="kd_pos" type="double" value="0.0" />
+  <param name="kp_yaw" type="double" value="3.0" />
+  <param name="ki_yaw" type="double" value="0.0" />
+  <param name="kd_yaw" type="double" value="0.2" />
+</node>
+\endverbatim
+

@@ -1,0 +1,8 @@
+prefix=/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/devel
+
+Name: plan_env
+Description: Description of plan_env
+Version: 0.0.0
+Cflags: -I/home/hzl/RAL_test/uav_gobal_path/Air-Ground-Coordination/Car/src/ego-planner/src/planner/plan_env/include
+Libs: -L${prefix}/lib -lplan_env
+Requires: roscpp std_msgs
