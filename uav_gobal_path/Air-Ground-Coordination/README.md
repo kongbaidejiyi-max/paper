@@ -151,4 +151,5 @@ source devel/setup.bash
 | `planning_horizon` | 2 | 规划时域 (秒) |
 | `flight_type` | 3 | 飞行模式 (3=GRP模式) |
 
-
+2026.04.01
+对文件目录进行了修改，无编译报错
